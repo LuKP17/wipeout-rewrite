@@ -501,9 +501,38 @@ static game_scene_t scene_next = GAME_SCENE_NONE;
 static int global_textures_len = 0;
 static void *global_mem_mark = 0;
 
+
+static void game_save() {
+	/*
+		Currently all file interactions are done using binary mode.
+		I need to use sprintf() to build a gigantic string and store it in one go.
+		Are there security issues since there are no user input?
+	*/
+
+	// DEV: store progress data in save.dat file
+	//platform_store_userdata("save.dat", ?, ?);
+
+	// DEV: store non progress data in save.txt file
+	// DEV: use the statically allocated memory, the size needs to be calculated
+	char save_str[2048] = "";
+	char buf[2048];
+
+	strcat(save_str, "[GENERAL]\nName = \"");
+	strcat(save_str, save.highscores_name);
+	strcat(save_str, "\"\n\n[OPTIONS]\nSFXVolume = ");
+	sprintf(buf, "%f", save.sfx_volume);
+	strcat(save_str, buf);
+
+	platform_store_userdata("save.txt", save_str, 2048);
+
+	printf("wrote user save data\n");
+
+	return;
+}
+
 void game_init(void) {
-    // DEV: load non progress data from save.ini
-    // DEV: load progress data from save.dat
+	// DEV: load non progress data from save.ini
+	// DEV: load progress data from save.dat
 	uint32_t size;
 	save_t *save_file = (save_t *)platform_load_userdata("save.dat", &size);
 	if (save_file) {
@@ -636,10 +665,7 @@ void game_update(void) {
 		// FIXME: use a text based format?
 		// FIXME: this should probably run async somewhere
 		save.is_dirty = false;
-        // DEV: store non progress data in save.ini textual file
-        // DEV: store progress data in save.dat file
-		platform_store_userdata("save.dat", &save, sizeof(save_t));
-		printf("wrote save.dat\n");
+		game_save();
 	}
 
 	double now = platform_now();
