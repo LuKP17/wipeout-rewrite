@@ -502,6 +502,8 @@ static int global_textures_len = 0;
 static void *global_mem_mark = 0;
 
 void game_init(void) {
+    // DEV: load non progress data from save.ini
+    // DEV: load progress data from save.dat
 	uint32_t size;
 	save_t *save_file = (save_t *)platform_load_userdata("save.dat", &size);
 	if (save_file) {
@@ -634,6 +636,8 @@ void game_update(void) {
 		// FIXME: use a text based format?
 		// FIXME: this should probably run async somewhere
 		save.is_dirty = false;
+        // DEV: store non progress data in save.ini textual file
+        // DEV: store progress data in save.dat file
 		platform_store_userdata("save.dat", &save, sizeof(save_t));
 		printf("wrote save.dat\n");
 	}

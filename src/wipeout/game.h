@@ -235,23 +235,33 @@ typedef struct {
 } highscores_t;
 
 typedef struct {
+	/*
+		uint32_t magic;
+
+		wipEout save file format identifier.
+		Its only purpose is to check if the struct stored in the file is of type save_t.
+		Not needed in the save file.
+		Can even be removed from the struct now that we are going to parse a text file.
+	*/
 	uint32_t magic;
-	bool is_dirty;
+	bool is_dirty;	// not needed in the save file
 
-	float sfx_volume;
-	float music_volume;
-	uint8_t ui_scale;
-	bool show_fps;
-	bool fullscreen;
-	int screen_res;
-	int post_effect;
+	float sfx_volume;	// needed in the save file, [OPTIONS] section
+	float music_volume;	// needed in the save file, [OPTIONS] section
+	uint8_t ui_scale;	// needed in the save file, [OPTIONS] section
+	bool show_fps;		// needed in the save file, [OPTIONS] section
+	bool fullscreen;	// needed in the save file, [OPTIONS] section
+	int screen_res;		// needed in the save file, [OPTIONS] section
+	int post_effect;	// needed in the save file, [OPTIONS] section
 
-	uint32_t has_rapier_class;
-	uint32_t has_bonus_circuts;
+	uint32_t has_rapier_class;	// needed in the save file, stored in separate progress binary file
+	uint32_t has_bonus_circuts;	// needed in the save file, stored in separate progress binary file
 	
-	uint8_t buttons[NUM_GAME_ACTIONS][2];
+	uint8_t buttons[NUM_GAME_ACTIONS][2];	// needed in the save file, [CONTROLS] section
 
-	char highscores_name[4];
+	char highscores_name[4];	// needed in the save file, [GENERAL] section
+
+	// needed in the save file, stored in separate progress binary file
 	highscores_t highscores[NUM_RACE_CLASSES][NUM_CIRCUTS][NUM_HIGHSCORE_TABS];
 } save_t;
 
