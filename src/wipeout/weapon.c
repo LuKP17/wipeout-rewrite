@@ -442,7 +442,7 @@ void weapon_update_missile(weapon_t *self) {
 				ship->turn_rate_from_hit = rand_float(-M_PI, M_PI);
 			}
 			track_face_t *face = track_section_get_base_face(ship->section);
-			ship->velocity = vec3_add(ship->velocity, vec3_mulf(face->normal, 13000));
+			ship->velocity = vec3_add(ship->velocity, vec3_mulf(face->normal, 10000));
 		}
 	}
 }
@@ -492,7 +492,7 @@ void weapon_update_rocket(weapon_t *self) {
 				ship->turn_rate_from_hit = rand_float(-M_PI, M_PI);
 			}
 			track_face_t *face = track_section_get_base_face(ship->section);
-			ship->velocity = vec3_add(ship->velocity, vec3_mulf(face->normal, 13000));
+			ship->velocity = vec3_add(ship->velocity, vec3_mulf(face->normal, 10000));
 		}
 	}
 }
