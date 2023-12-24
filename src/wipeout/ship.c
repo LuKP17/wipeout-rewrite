@@ -630,8 +630,8 @@ void ship_resolve_wing_collision(ship_t *self, track_face_t *face, float directi
 	vec3_t collision_vector = vec3_sub(self->section->center, face->tris[0].vertices[2].pos);
 	float angle = vec3_angle(collision_vector, self->dir_forward);
 	self->velocity = vec3_reflect(self->velocity, face->normal, 2);
-	self->position = vec3_sub(self->position, vec3_mulf(self->velocity, 0.015625)); // system_tick?
-	self->velocity = vec3_sub(self->velocity, vec3_mulf(self->velocity, 0.5));
+	//self->position = vec3_sub(self->position, vec3_mulf(self->velocity, 0.015625)); // system_tick?
+	self->velocity = vec3_sub(self->velocity, vec3_mulf(self->velocity, 0.2));
 	self->velocity = vec3_add(self->velocity, vec3_mulf(face->normal, 4096)); // div by 4096?
 
 	float magnitude = (fabsf(angle) * self->speed) * M_PI / (4096 * 16.0); // (6 velocity shift, 12 angle shift?)
@@ -639,11 +639,11 @@ void ship_resolve_wing_collision(ship_t *self, track_face_t *face, float directi
 	vec3_t wing_pos;
 	if (direction > 0) {
 		self->angular_velocity.z += magnitude;
-		wing_pos = vec3_add(self->position, vec3_mulf(vec3_sub(self->dir_right, self->dir_forward), 256)); // >> 4??
+		//wing_pos = vec3_add(self->position, vec3_mulf(vec3_sub(self->dir_right, self->dir_forward), 256)); // >> 4??
 	}
 	else {
 		self->angular_velocity.z -= magnitude;	
-		wing_pos = vec3_sub(self->position, vec3_mulf(vec3_sub(self->dir_right, self->dir_forward), 256)); // >> 4??
+		//wing_pos = vec3_sub(self->position, vec3_mulf(vec3_sub(self->dir_right, self->dir_forward), 256)); // >> 4??
 	}
 
 	if (self->last_impact_time > 0.2) {
@@ -657,8 +657,8 @@ void ship_resolve_nose_collision(ship_t *self, track_face_t *face, float directi
 	vec3_t collision_vector = vec3_sub(self->section->center, face->tris[0].vertices[2].pos);
 	float angle = vec3_angle(collision_vector, self->dir_forward);
 	self->velocity = vec3_reflect(self->velocity, face->normal, 2);
-	self->position = vec3_sub(self->position, vec3_mulf(self->velocity, 0.015625)); // system_tick?
-	self->velocity = vec3_sub(self->velocity, vec3_mulf(self->velocity, 0.5));
+	//self->position = vec3_sub(self->position, vec3_mulf(self->velocity, 0.015625)); // system_tick?
+	self->velocity = vec3_sub(self->velocity, vec3_mulf(self->velocity, 0.2));
 	self->velocity = vec3_add(self->velocity, vec3_mulf(face->normal, 4096)); // div by 4096?
 
 	float magnitude = ((self->speed * 0.0625) + 400) * M_PI / (4096.0 * 64.0);
