@@ -65,6 +65,12 @@ void ships_init(section_t *section) {
 	// Randomize order for single race or new championship
 	if (g.race_type != RACE_TYPE_CHAMPIONSHIP || g.circut == CIRCUT_ALTIMA_VII) {
 		shuffle(ranks_to_pilots, len(ranks_to_pilots));
+		// player is always last
+		for (int i = 0; i < len(ranks_to_pilots)-1; i++) {
+			if (ranks_to_pilots[i] == g.pilot) {
+				swap(ranks_to_pilots[i], ranks_to_pilots[i+1]);
+			}
+		}
 	}
 
 	// Randomize some tiers in an ongoing championship
@@ -73,17 +79,17 @@ void ships_init(section_t *section) {
 		for (int i = 0; i < len(g.ships); i++) {
 			ranks_to_pilots[i] = g.championship_ranks[i].pilot;
 		}		
-		shuffle(ranks_to_pilots, 2); // shuffle 0..1
-		shuffle(ranks_to_pilots + 4, len(ranks_to_pilots)-5); // shuffle 4..len-1
+		//shuffle(ranks_to_pilots, 2); // shuffle 0..1
+		//shuffle(ranks_to_pilots + 4, len(ranks_to_pilots)-5); // shuffle 4..len-1
 	}
-
+/*
 	// player is always last
 	for (int i = 0; i < len(ranks_to_pilots)-1; i++) {
 		if (ranks_to_pilots[i] == g.pilot) {
 			swap(ranks_to_pilots[i], ranks_to_pilots[i+1]);
 		}
 	}
-
+*/
 
 	int start_line_pos = def.circuts[g.circut].settings[g.race_class].start_line_pos;
 	for (int i = 0; i < start_line_pos - 15; i++) {
