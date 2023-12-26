@@ -160,8 +160,13 @@ void ship_ai_update_race(ship_t *self) {
 					self->speed += (self->remote_thrust_mag + 150) * 30 * system_tick();
 				}
 			}
-
-
+// START OF CHANGES
+			self->update_timer = 0;
+			self->update_strat_func = ship_ai_strat_hold_center;
+			if ((self->remote_thrust_max > self->speed)) {
+				self->speed += self->remote_thrust_mag * 30 * system_tick();
+			}
+/*
 			// Ship has been left WELL BEHIND; set it to avoid
 			// other ships and update its speed as normal
 
@@ -206,19 +211,19 @@ void ship_ai_update_race(ship_t *self) {
 								weapons_fire(self, self->weapon_type);
 							}
 						}
-					}/*
+					}
 					else { // Let the first ships be easy to pass
 						self->update_strat_func = ship_ai_strat_avoid;
-					}*/
+					}
 				}
 
 				self->update_timer -= system_tick();
 
-				if (flags_is(self->flags, SHIP_OVERTAKEN)) {/*
+				if (flags_is(self->flags, SHIP_OVERTAKEN)) {
 					// If ship has just overtaken, slow it down to a reasonable speed
 					if ((self->remote_thrust_max + behind_speed) > self->speed) {
 						self->speed += self->remote_thrust_mag * 30 * system_tick();
-					}*/
+					}
 				}
 				else {
 					// Increase the speed of any craft just in front slightly
@@ -277,14 +282,14 @@ void ship_ai_update_race(ship_t *self) {
 								}
 							}
 						}
-					}/*
+					}
 					else { // If ship destined to be tail-ender then slow down
 						self->remote_thrust_max = 2100 ;
 						self->remote_thrust_mag = 25;
 						self->speed = 2100 ;
 						self->update_strat_func = ship_ai_strat_avoid;
 						flags_rm(self->flags, SHIP_OVERTAKEN);
-					}*/
+					}
 				}
 
 				for (int i = 0; i < NUM_PILOTS; i++) { // If another ship is just in front pass fight on
@@ -297,37 +302,23 @@ void ship_ai_update_race(ship_t *self) {
 				self->update_timer -= system_tick();
 
 
-				/*if (flags_is(self->flags, SHIP_OVERTAKEN)) {
+				if (flags_is(self->flags, SHIP_OVERTAKEN)) {
 					if ((self->remote_thrust_max + 700) > self->speed) {
 						self->speed += self->remote_thrust_mag * 2 * 30 * system_tick();
 					}
 				}
-				else {*/
+				else {
 					if (((self->remote_thrust_max + behind_speed) > self->speed)) {
 						self->speed += self->remote_thrust_mag * 30 * system_tick();
 					}
-				//}
+				}
 			}
 
 
 			// Ship is WELL AHEAD; we must slow the opponent to
 			// give the weaker player a chance to catch up
 			
-			//else if (section_diff > (NUM_PILOTS - self->position_rank) * 15 && section_diff < 150) {
-			else if (section_diff > (NUM_PILOTS - self->position_rank) * 15) {
-				self->speed += self->remote_thrust_mag * 0.5 * 30 * system_tick();
-				if (self->speed > self->remote_thrust_max * 0.6) {
-					self->speed = self->remote_thrust_max * 0.6;
-				}
-
-				self->update_timer = 0;
-				self->update_strat_func = ship_ai_strat_hold_center;
-			}
-			
-/*
-			// Ship is TOO FAR AHEAD
-
-			else if (section_diff >= 150) { // Ship too far ahead, let it continue
+			else if (section_diff > (NUM_PILOTS - self->position_rank) * 15 && section_diff < 150) {
 				self->speed += self->remote_thrust_mag * 0.5 * 30 * system_tick();
 				if (self->speed > self->remote_thrust_max * 0.5) {
 					self->speed = self->remote_thrust_max * 0.5;
@@ -336,7 +327,19 @@ void ship_ai_update_race(ship_t *self) {
 				self->update_timer = 0;
 				self->update_strat_func = ship_ai_strat_hold_center;
 			}
-*/
+
+
+			// Ship is TOO FAR AHEAD
+
+			else if (section_diff >= 150) { // Ship too far ahead, let it continue
+				self->update_timer = 0;
+				self->update_strat_func = ship_ai_strat_avoid;
+
+				if ((self->remote_thrust_max > self->speed)) {
+					self->speed += self->remote_thrust_mag * 30 * system_tick();
+				}
+			}
+
 
 			// Ship is IN SIGHT
 
@@ -371,7 +374,7 @@ void ship_ai_update_race(ship_t *self) {
 					self->speed += self->remote_thrust_mag * 30 * system_tick();
 				}
 			}
-		}
+		*/}
 
 		if (!self->update_strat_func) {
 			self->update_strat_func = ship_ai_strat_hold_center;
