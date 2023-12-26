@@ -167,7 +167,7 @@ typedef struct {
 	race_type_t race_types[NUM_RACE_TYPES];
 	pilot_t pilots[NUM_PILOTS];
 	team_t teams[NUM_TEAMS];
-	ai_setting_t ai_settings[NUM_RACE_CLASSES][NUM_AI_OPPONENTS];
+	ai_setting_t ai_settings[NUM_RACE_CLASSES][NUM_PILOTS];
 	circut_t circuts[NUM_CIRCUTS];
 	int ship_model_to_pilot[NUM_PILOTS];
 	int race_points_for_rank[NUM_PILOTS];

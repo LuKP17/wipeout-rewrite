@@ -243,9 +243,9 @@ void ship_init(ship_t *self, section_t *section, int pilot, int inv_start_rank) 
 	}
 	else {
 		self->update_func = ship_ai_update_intro;
-		self->remote_thrust_max = def.ai_settings[g.race_class][inv_start_rank-1].thrust_max;
-		self->remote_thrust_mag = def.ai_settings[g.race_class][inv_start_rank-1].thrust_magnitude;
-		self->fight_back = def.ai_settings[g.race_class][inv_start_rank-1].fight_back;
+		self->remote_thrust_max = def.ai_settings[g.race_class][pilot].thrust_max;
+		self->remote_thrust_mag = def.ai_settings[g.race_class][pilot].thrust_magnitude;
+		self->fight_back = def.ai_settings[g.race_class][pilot].fight_back;
 	}
 
 	self->section = section;
