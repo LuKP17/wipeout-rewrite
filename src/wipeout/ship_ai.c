@@ -160,12 +160,43 @@ void ship_ai_update_race(ship_t *self) {
 					self->speed += (self->remote_thrust_mag + 150) * 30 * system_tick();
 				}
 			}
+/////////////////////////////////////////////////////////////////////////////////////
 // START OF CHANGES
 			self->update_timer = 0;
 			self->update_strat_func = ship_ai_strat_hold_center;
+
+			/*
+			// individual pilot test (works)
+			if (self->pilot == PILOT_JOHN_DEKKA) {
+				self->update_strat_func = ship_ai_strat_hold_left;
+			}
+			else if (self->pilot == PILOT_ARIAN_TETSUO) {
+				self->update_strat_func = ship_ai_strat_hold_right;
+			}
+			*/
+
+			/*
+			// fighter/sprinter test (works)
+			if (section_diff > 0 && section_diff <= 10) {
+				flags_add(self->flags, SHIP_OVERTAKEN);
+			}
+			if (flags_is(self->flags, SHIP_OVERTAKEN | SHIP_RACING)) {
+				if (self->fight_back) {
+					self->update_strat_func = ship_ai_strat_block;
+				}
+				else {
+					self->update_strat_func = ship_ai_strat_avoid;
+				}
+				flags_rm(self->flags, SHIP_OVERTAKEN);
+			}
+			*/
+
+			// update ship speed as normal
 			if ((self->remote_thrust_max > self->speed)) {
 				self->speed += self->remote_thrust_mag * 30 * system_tick();
 			}
+// END OF CHANGES
+/////////////////////////////////////////////////////////////////////////////////////
 /*
 			// Ship has been left WELL BEHIND; set it to avoid
 			// other ships and update its speed as normal
