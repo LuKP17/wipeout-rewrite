@@ -128,7 +128,7 @@ void ship_ai_update_race(ship_t *self) {
 		flags_rm(self->flags, SHIP_ELECTROED);
 	}
 
-	int behind_speed = def.circuts[g.circut].settings[g.race_class].behind_speed;
+	//int behind_speed = def.circuts[g.circut].settings[g.race_class].behind_speed;
 
 
 	if (flags_not(self->flags, SHIP_FLYING)) {
@@ -162,8 +162,24 @@ void ship_ai_update_race(ship_t *self) {
 			}
 /////////////////////////////////////////////////////////////////////////////////////
 // START OF CHANGES
-			self->update_timer = 0;
-			self->update_strat_func = ship_ai_strat_hold_center;
+			/*
+			// pickup pad detection test (works)
+			section_t *search_section = self->section;
+			for (int i = 0; i < 10; i++) { // TRACK_SEARCH_LOOK_AHEAD isn't high enough
+				search_section = search_section->next;
+			}
+			track_face_t *search_face = g.track.faces + search_section->face_start;
+			for (uint32_t i = 0; i < search_section->face_count; i++) {
+				if (flags_is(search_face->flags, FACE_PICKUP_LEFT)) {
+					self->update_strat_func = ship_ai_strat_hold_left;
+				}
+				if (flags_is(search_face->flags, FACE_PICKUP_RIGHT)) {
+					printf("right pickup pad nearby\n");
+					self->update_strat_func = ship_ai_strat_hold_right;
+				}
+				search_face++;
+			}
+			*/
 
 			/*
 			// individual pilot test (works)
@@ -191,10 +207,22 @@ void ship_ai_update_race(ship_t *self) {
 			}
 			*/
 
+			/*
+			// field speed mutiplier test (works)
+			float first_speed = def.circuts[g.circut].settings[g.race_class].first_speed;
+			float last_speed = def.circuts[g.circut].settings[g.race_class].last_speed;
+			float speed_multiplier = (last_speed + (first_speed - last_speed) / (NUM_PILOTS - 1) * (NUM_PILOTS - player->position_rank));
+			printf("player rank: %d\nspeed multiplier: %f\n", player->position_rank, speed_multiplier);
+			if ((self->remote_thrust_max * speed_multiplier > self->speed)) {
+				self->speed += self->remote_thrust_mag * 30 * system_tick();
+			}
+			*/
+			
 			// update ship speed as normal
 			if ((self->remote_thrust_max > self->speed)) {
 				self->speed += self->remote_thrust_mag * 30 * system_tick();
 			}
+			
 // END OF CHANGES
 /////////////////////////////////////////////////////////////////////////////////////
 /*

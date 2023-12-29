@@ -124,56 +124,56 @@ const game_def_t def = {
 			.name = "ALTIMA VII",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track02/", .start_line_pos = 27, .behind_speed = 300, .spread_base = 80, .spread_factor = 20, .sky_y_offset = -2520},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track03/", .start_line_pos = 27, .behind_speed = 500, .spread_base = 80, .spread_factor = 11, .sky_y_offset = -1930},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track02/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 80, .spread_factor = 20, .sky_y_offset = -2520},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track03/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 80, .spread_factor = 11, .sky_y_offset = -1930},
 			}
 		},
 		[CIRCUT_KARBONIS_V] = {
 			.name = "KARBONIS V",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track04/", .start_line_pos = 16, .behind_speed = 200, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -5000},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track05/", .start_line_pos = 16, .behind_speed = 500, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -5000},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track04/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -5000},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track05/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -5000},
 			}
 		},
 		[CIRCUT_TERRAMAX] = {
 			.name = "TERRAMAX",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track01/", .start_line_pos = 27, .behind_speed = 350, .spread_base = 60, .spread_factor = 11, .sky_y_offset =  -820},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track06/", .start_line_pos = 27, .behind_speed = 500, .spread_base = 10, .spread_factor =  8, .sky_y_offset =     0},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track01/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 60, .spread_factor = 11, .sky_y_offset =  -820},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track06/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset =     0},
 			}
 		},
 		[CIRCUT_KORODERA] = {
 			.name = "KORODERA",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track12/", .start_line_pos = 16, .behind_speed = 450, .spread_base = 40, .spread_factor = 11, .sky_y_offset = -2120},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track07/", .start_line_pos = 16, .behind_speed = 500, .spread_base = 30, .spread_factor = 11, .sky_y_offset = -2260},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track12/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 40, .spread_factor = 11, .sky_y_offset = -2120},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track07/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 30, .spread_factor = 11, .sky_y_offset = -2260},
 			}
 		},
 		[CIRCUT_ARRIDOS_IV] = {
 			.name = "ARRIDOS IV",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track08/", .start_line_pos = 16, .behind_speed = 350, .spread_base = 80, .spread_factor = 15, .sky_y_offset =   -40},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track11/", .start_line_pos = 16, .behind_speed = 450, .spread_base = 30, .spread_factor = 11, .sky_y_offset =  -240},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track08/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 80, .spread_factor = 15, .sky_y_offset =   -40},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track11/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 30, .spread_factor = 11, .sky_y_offset =  -240},
 			}
 		},
 		[CIRCUT_SILVERSTREAM] = {
 			.name = "SILVERSTREAM",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track09/", .start_line_pos = 16, .behind_speed = 150, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -2700},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track13/", .start_line_pos = 16, .behind_speed = 150, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -2700},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track09/", .start_line_pos = 16, .first_speed = 1.3, .last_speed = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -2700},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track13/", .start_line_pos = 16, .first_speed = 1.3, .last_speed = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -2700},
 			}
 		},
 		[CIRCUT_FIRESTAR] = {
 			.name = "FIRESTAR",
 			.is_bonus_circut = true,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track10/", .start_line_pos = 27, .behind_speed = 200, .spread_base = 40, .spread_factor = 11, .sky_y_offset =     0},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track14/", .start_line_pos = 27, .behind_speed = 500, .spread_base = 40, .spread_factor = 11, .sky_y_offset =     0},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track10/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 40, .spread_factor = 11, .sky_y_offset =     0},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track14/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 40, .spread_factor = 11, .sky_y_offset =     0},
 			}
 		},
 	},
