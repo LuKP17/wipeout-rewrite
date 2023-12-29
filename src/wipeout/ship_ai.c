@@ -163,21 +163,34 @@ void ship_ai_update_race(ship_t *self) {
 /////////////////////////////////////////////////////////////////////////////////////
 // START OF CHANGES
 			/*
+			// boost pad detection test (works)
+			section_t *search_section = self->section;
+			for (int i = 0; i < 10; i++) { // TRACK_SEARCH_LOOK_AHEAD isn't high enough
+				search_section = search_section->next;
+			}
+			track_face_t *search_face = track_section_get_base_face(search_section);
+			if (flags_is(search_face->flags, FACE_BOOST)) {
+				self->update_strat_func = ship_ai_strat_hold_left;
+			}
+			search_face++;
+			if (flags_is(search_face->flags, FACE_BOOST)) {
+				self->update_strat_func = ship_ai_strat_hold_right;
+			}
+			*/
+
+			/*
 			// pickup pad detection test (works)
 			section_t *search_section = self->section;
 			for (int i = 0; i < 10; i++) { // TRACK_SEARCH_LOOK_AHEAD isn't high enough
 				search_section = search_section->next;
 			}
-			track_face_t *search_face = g.track.faces + search_section->face_start;
-			for (uint32_t i = 0; i < search_section->face_count; i++) {
-				if (flags_is(search_face->flags, FACE_PICKUP_LEFT)) {
-					self->update_strat_func = ship_ai_strat_hold_left;
-				}
-				if (flags_is(search_face->flags, FACE_PICKUP_RIGHT)) {
-					printf("right pickup pad nearby\n");
-					self->update_strat_func = ship_ai_strat_hold_right;
-				}
-				search_face++;
+			track_face_t *search_face = track_section_get_base_face(search_section);
+			if (flags_is(search_face->flags, FACE_PICKUP_LEFT)) {
+				self->update_strat_func = ship_ai_strat_hold_left;
+			}
+			search_face++;
+			if (flags_is(search_face->flags, FACE_PICKUP_RIGHT)) {
+				self->update_strat_func = ship_ai_strat_hold_right;
 			}
 			*/
 
