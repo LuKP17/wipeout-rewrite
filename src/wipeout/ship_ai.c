@@ -162,37 +162,31 @@ void ship_ai_update_race(ship_t *self) {
 			}
 /////////////////////////////////////////////////////////////////////////////////////
 // START OF CHANGES
-			/*
-			// boost pad detection test (works)
+			/* pad detection tests (works)
 			section_t *search_section = self->section;
 			for (int i = 0; i < 10; i++) { // TRACK_SEARCH_LOOK_AHEAD isn't high enough
 				search_section = search_section->next;
 			}
 			track_face_t *search_face = track_section_get_base_face(search_section);
-			if (flags_is(search_face->flags, FACE_BOOST)) {
-				self->update_strat_func = ship_ai_strat_hold_left;
-			}
-			search_face++;
-			if (flags_is(search_face->flags, FACE_BOOST)) {
-				self->update_strat_func = ship_ai_strat_hold_right;
-			}
-			*/
 
-			/*
-			// pickup pad detection test (works)
-			section_t *search_section = self->section;
-			for (int i = 0; i < 10; i++) { // TRACK_SEARCH_LOOK_AHEAD isn't high enough
-				search_section = search_section->next;
+			if (self->fight_back) {
+				if (flags_is(search_face->flags, FACE_PICKUP_LEFT)) {
+					self->update_strat_func = ship_ai_strat_hold_left;
+				}
+				search_face++;
+				if (flags_is(search_face->flags, FACE_PICKUP_RIGHT)) {
+					self->update_strat_func = ship_ai_strat_hold_right;
+				}
 			}
-			track_face_t *search_face = track_section_get_base_face(search_section);
-			if (flags_is(search_face->flags, FACE_PICKUP_LEFT)) {
-				self->update_strat_func = ship_ai_strat_hold_left;
+			else {
+				if (flags_is(search_face->flags, FACE_BOOST)) {
+					self->update_strat_func = ship_ai_strat_hold_left;
+				}
+				search_face++;
+				if (flags_is(search_face->flags, FACE_BOOST)) {
+					self->update_strat_func = ship_ai_strat_hold_right;
+				}
 			}
-			search_face++;
-			if (flags_is(search_face->flags, FACE_PICKUP_RIGHT)) {
-				self->update_strat_func = ship_ai_strat_hold_right;
-			}
-			*/
 
 			/*
 			// individual pilot test (works)
@@ -509,11 +503,11 @@ void ship_ai_update_race(ship_t *self) {
 		self->speed -= fabsf(self->speed * self->angular_velocity.x) * 4 / (M_PI * 2) * system_tick(); // >> 14
 
 		// If remote has gone over boost
-		if (flags_is(face->flags, FACE_BOOST) && (self->update_strat_func == ship_ai_strat_hold_left || self->update_strat_func == ship_ai_strat_hold_center)) {
+		if (flags_is(face->flags, FACE_BOOST) && flags_is(self->flags, SHIP_LEFT_SIDE)) {
 			self->speed += 200 * 30 * system_tick();
 		}
 		face++;
-		if (flags_is(face->flags, FACE_BOOST) && (self->update_strat_func == ship_ai_strat_hold_right || self->update_strat_func == ship_ai_strat_hold_center)) {
+		if (flags_is(face->flags, FACE_BOOST) && flags_not(self->flags, SHIP_LEFT_SIDE)) {
 			self->speed += 200 * 30 * system_tick();
 		}
 
