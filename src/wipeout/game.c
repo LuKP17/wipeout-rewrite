@@ -98,24 +98,24 @@ const game_def_t def = {
 
 	.ai_settings = {
 		[RACE_CLASS_VENOM] = {
-			{.thrust_max = 2550, .thrust_magnitude = 44, .fight_back = 0},
-			{.thrust_max = 2600, .thrust_magnitude = 45, .fight_back = 1},
-			{.thrust_max = 2630, .thrust_magnitude = 45, .fight_back = 0},
-			{.thrust_max = 2660, .thrust_magnitude = 46, .fight_back = 0},
-			{.thrust_max = 2700, .thrust_magnitude = 47, .fight_back = 1},
-			{.thrust_max = 2720, .thrust_magnitude = 48, .fight_back = 1},
-			{.thrust_max = 2750, .thrust_magnitude = 49, .fight_back = 0},
-			{.thrust_max = 2750, .thrust_magnitude = 50, .fight_back = 1},
+			{.thrust_max = 2550, .thrust_magnitude = 44, .fight_bias = 40},
+			{.thrust_max = 2600, .thrust_magnitude = 45, .fight_bias = 65},
+			{.thrust_max = 2630, .thrust_magnitude = 45, .fight_bias = 15},
+			{.thrust_max = 2660, .thrust_magnitude = 46, .fight_bias = 30},
+			{.thrust_max = 2700, .thrust_magnitude = 47, .fight_bias = 70},
+			{.thrust_max = 2720, .thrust_magnitude = 48, .fight_bias = 80},
+			{.thrust_max = 2750, .thrust_magnitude = 49, .fight_bias = 25},
+			{.thrust_max = 2750, .thrust_magnitude = 50, .fight_bias = 50},
 		},
 		[RACE_CLASS_RAPIER] = {
-			{.thrust_max = 3820, .thrust_magnitude = 59, .fight_back = 0},
-			{.thrust_max = 3850, .thrust_magnitude = 60, .fight_back = 1},
-			{.thrust_max = 3880, .thrust_magnitude = 61, .fight_back = 0},
-			{.thrust_max = 3900, .thrust_magnitude = 62, .fight_back = 0},
-			{.thrust_max = 3920, .thrust_magnitude = 63, .fight_back = 1},
-			{.thrust_max = 3950, .thrust_magnitude = 64, .fight_back = 1},
-			{.thrust_max = 3980, .thrust_magnitude = 65, .fight_back = 0},
-			{.thrust_max = 4000, .thrust_magnitude = 65, .fight_back = 1},
+			{.thrust_max = 3820, .thrust_magnitude = 59, .fight_bias = 40},
+			{.thrust_max = 3850, .thrust_magnitude = 60, .fight_bias = 65},
+			{.thrust_max = 3880, .thrust_magnitude = 61, .fight_bias = 15},
+			{.thrust_max = 3900, .thrust_magnitude = 62, .fight_bias = 30},
+			{.thrust_max = 3920, .thrust_magnitude = 63, .fight_bias = 70},
+			{.thrust_max = 3950, .thrust_magnitude = 64, .fight_bias = 80},
+			{.thrust_max = 3980, .thrust_magnitude = 65, .fight_bias = 25},
+			{.thrust_max = 4000, .thrust_magnitude = 65, .fight_bias = 50},
 		},
 	},
 
@@ -124,56 +124,56 @@ const game_def_t def = {
 			.name = "ALTIMA VII",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track02/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 80, .spread_factor = 20, .sky_y_offset = -2520},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track03/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 80, .spread_factor = 11, .sky_y_offset = -1930},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track02/", .start_line_pos = 27, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 80, .spread_factor = 20, .sky_y_offset = -2520},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track03/", .start_line_pos = 27, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 80, .spread_factor = 11, .sky_y_offset = -1930},
 			}
 		},
 		[CIRCUT_KARBONIS_V] = {
 			.name = "KARBONIS V",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track04/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -5000},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track05/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -5000},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track04/", .start_line_pos = 16, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -5000},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track05/", .start_line_pos = 16, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -5000},
 			}
 		},
 		[CIRCUT_TERRAMAX] = {
 			.name = "TERRAMAX",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track01/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 60, .spread_factor = 11, .sky_y_offset =  -820},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track06/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset =     0},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track01/", .start_line_pos = 27, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 60, .spread_factor = 11, .sky_y_offset =  -820},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track06/", .start_line_pos = 27, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset =     0},
 			}
 		},
 		[CIRCUT_KORODERA] = {
 			.name = "KORODERA",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track12/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 40, .spread_factor = 11, .sky_y_offset = -2120},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track07/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 30, .spread_factor = 11, .sky_y_offset = -2260},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track12/", .start_line_pos = 16, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 40, .spread_factor = 11, .sky_y_offset = -2120},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track07/", .start_line_pos = 16, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 30, .spread_factor = 11, .sky_y_offset = -2260},
 			}
 		},
 		[CIRCUT_ARRIDOS_IV] = {
 			.name = "ARRIDOS IV",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track08/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 80, .spread_factor = 15, .sky_y_offset =   -40},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track11/", .start_line_pos = 16, .first_speed = 1.5, .last_speed = 1, .spread_base = 30, .spread_factor = 11, .sky_y_offset =  -240},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track08/", .start_line_pos = 16, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 80, .spread_factor = 15, .sky_y_offset =   -40},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track11/", .start_line_pos = 16, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 30, .spread_factor = 11, .sky_y_offset =  -240},
 			}
 		},
 		[CIRCUT_SILVERSTREAM] = {
 			.name = "SILVERSTREAM",
 			.is_bonus_circut = false,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track09/", .start_line_pos = 16, .first_speed = 1.3, .last_speed = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -2700},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track13/", .start_line_pos = 16, .first_speed = 1.3, .last_speed = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -2700},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track09/", .start_line_pos = 16, .speed_mult_max = 1.3, .speed_mult_min = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -2700},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track13/", .start_line_pos = 16, .speed_mult_max = 1.3, .speed_mult_min = 1, .spread_base = 10, .spread_factor =  8, .sky_y_offset = -2700},
 			}
 		},
 		[CIRCUT_FIRESTAR] = {
 			.name = "FIRESTAR",
 			.is_bonus_circut = true,
 			.settings = {
-				[RACE_CLASS_VENOM]  = {.path = "wipeout/track10/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 40, .spread_factor = 11, .sky_y_offset =     0},
-				[RACE_CLASS_RAPIER] = {.path = "wipeout/track14/", .start_line_pos = 27, .first_speed = 1.5, .last_speed = 1, .spread_base = 40, .spread_factor = 11, .sky_y_offset =     0},
+				[RACE_CLASS_VENOM]  = {.path = "wipeout/track10/", .start_line_pos = 27, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 40, .spread_factor = 11, .sky_y_offset =     0},
+				[RACE_CLASS_RAPIER] = {.path = "wipeout/track14/", .start_line_pos = 27, .speed_mult_max = 1.5, .speed_mult_min = 1, .spread_base = 40, .spread_factor = 11, .sky_y_offset =     0},
 			}
 		},
 	},

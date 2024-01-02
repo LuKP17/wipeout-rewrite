@@ -100,7 +100,7 @@ typedef struct ship_t {
 	float remote_thrust_max;
 
 	// Remote Ship Attributes
-	int16_t fight_back;
+	int16_t fight_mode;
 	float start_accelerate_timer;
 
 	// Weapon Attributes

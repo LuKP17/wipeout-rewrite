@@ -123,7 +123,7 @@ typedef struct {
 typedef struct {
 	float thrust_max;
 	float thrust_magnitude;
-	bool fight_back;
+	int fight_bias;
 } ai_setting_t;
 
 typedef struct {
@@ -145,8 +145,8 @@ typedef struct {
 typedef struct {
 	char *path;
 	float start_line_pos;
-	float first_speed;
-	float last_speed;
+	float speed_mult_max;
+	float speed_mult_min;
 	float spread_base;
 	float spread_factor;
 	float sky_y_offset;

@@ -38,6 +38,44 @@ void ship_ai_update_intro_await_go(ship_t *self) {
 	}
 }
 
+void ship_ai_mode_switch(ship_t *self) {
+	int16_t old = self->fight_mode; // debug
+	if (old) // debug
+		printf("Pilot %d switched from fight mode ", self->pilot); // debug
+	else // debug
+		printf("Pilot %d switched from sprint mode ", self->pilot); // debug
+
+	int chance = rand_int(0, 101);
+	self->fight_mode = (chance <= def.ai_settings[g.race_class][self->pilot].fight_bias) ? 1 : 0;
+
+	if (self->fight_mode) // debug
+		printf("to fight mode (%d)\n", chance); // debug
+	else // debug
+		printf("to sprint mode (%d)\n", chance); // debug
+}
+
+ship_t *ship_ai_get_ship_ahead(ship_t *self) {
+	if (self->position_rank == 1)
+		return NULL;
+
+	for (int i = 0; i < NUM_PILOTS; i++) {
+		if (g.ships[i].position_rank == self->position_rank - 1)
+			return &(g.ships[i]);
+	}
+	return NULL;
+}
+
+ship_t *ship_ai_get_ship_behind(ship_t *self) {
+	if (self->position_rank == NUM_PILOTS)
+		return NULL;
+
+	for (int i = 0; i < NUM_PILOTS; i++) {
+		if (g.ships[i].position_rank == self->position_rank + 1)
+			return &(g.ships[i]);
+	}
+	return NULL;
+}
+
 vec3_t ship_ai_strat_hold_left(ship_t *self, track_face_t *face) {
 	vec3_t fv1 = face->tris[0].vertices[1].pos;
 	vec3_t fv2 = face->tris[0].vertices[0].pos;
@@ -128,16 +166,9 @@ void ship_ai_update_race(ship_t *self) {
 		flags_rm(self->flags, SHIP_ELECTROED);
 	}
 
-	//int behind_speed = def.circuts[g.circut].settings[g.race_class].behind_speed;
-
-
 	if (flags_not(self->flags, SHIP_FLYING)) {
 		// Find First track base section
 		track_face_t *face = track_section_get_base_face(self->section);
-
-		int section_diff = self->total_section_num - player->total_section_num;
-
-		flags_rm(self->flags, SHIP_JUST_IN_FRONT);
 
 		if (self == player) {
 			self->update_strat_func = ship_ai_strat_avoid_other;
@@ -146,8 +177,7 @@ void ship_ai_update_race(ship_t *self) {
 			}
 		}
 		else {
-			// Make global DPA decisions , these will effect the craft in
-			// relation to your race position
+			// Make global DPA decisions
 
 			// Accelerate remote ships away at start, start_accelerate_count set in
 			// InitShipData and is an exponential progression
@@ -162,6 +192,51 @@ void ship_ai_update_race(ship_t *self) {
 			}
 /////////////////////////////////////////////////////////////////////////////////////
 // START OF CHANGES
+			ship_t *ship_ahead = ship_ai_get_ship_ahead(self);
+			ship_t *ship_behind = ship_ai_get_ship_behind(self);
+
+			// update ship speed based on player's rank
+			float speed_mult_max = def.circuts[g.circut].settings[g.race_class].speed_mult_max;
+			float speed_mult_min = def.circuts[g.circut].settings[g.race_class].speed_mult_min;
+			float speed_mult = (speed_mult_min + (speed_mult_max - speed_mult_min) / (NUM_PILOTS - 1) * (NUM_PILOTS - player->position_rank));
+			if ((self->remote_thrust_max * speed_mult > self->speed)) {
+				self->speed += self->remote_thrust_mag * 30 * system_tick();
+			}
+
+			//
+			// ship is RIGHT BEHIND another ship
+			//
+			if (ship_ahead && (ship_ahead->total_section_num - self->total_section_num < 10)) {
+				printf("Pilot %d is right behind pilot %d\n", self->pilot, ship_ahead->pilot);
+				// are we in a key race situation?
+				if ((self->position_rank == 2) ||
+					(self->position_rank == NUM_PILOTS) ||
+					((g.track.section_count * NUM_LAPS - self->total_section_num) < 100)) {
+					ship_ai_mode_switch(self);
+				}
+			}
+/*
+			//
+			// ship is JUST AHEAD of another ship
+			//
+			else if (condition) {
+
+			}
+
+			//
+			// ship is WELL LAST
+			//
+			else if (condition) {
+
+			}
+
+			//
+			// ship is DOING ITS OWN RACE
+			//
+			else {
+
+			}*/
+
 			/* pad detection tests (works)
 			section_t *search_section = self->section;
 			for (int i = 0; i < 10; i++) { // TRACK_SEARCH_LOOK_AHEAD isn't high enough
@@ -216,20 +291,13 @@ void ship_ai_update_race(ship_t *self) {
 
 			/*
 			// field speed mutiplier test (works)
-			float first_speed = def.circuts[g.circut].settings[g.race_class].first_speed;
-			float last_speed = def.circuts[g.circut].settings[g.race_class].last_speed;
-			float speed_multiplier = (last_speed + (first_speed - last_speed) / (NUM_PILOTS - 1) * (NUM_PILOTS - player->position_rank));
-			printf("player rank: %d\nspeed multiplier: %f\n", player->position_rank, speed_multiplier);
-			if ((self->remote_thrust_max * speed_multiplier > self->speed)) {
+			float speed_mult_max = def.circuts[g.circut].settings[g.race_class].speed_mult_max;
+			float speed_mult_min = def.circuts[g.circut].settings[g.race_class].speed_mult_min;
+			float speed_mult = (speed_mult_min + (speed_mult_max - speed_mult_min) / (NUM_PILOTS - 1) * (NUM_PILOTS - player->position_rank));
+			if ((self->remote_thrust_max * speed_mult > self->speed)) {
 				self->speed += self->remote_thrust_mag * 30 * system_tick();
 			}
 			*/
-			
-			// update ship speed as normal
-			if ((self->remote_thrust_max > self->speed)) {
-				self->speed += self->remote_thrust_mag * 30 * system_tick();
-			}
-			
 // END OF CHANGES
 /////////////////////////////////////////////////////////////////////////////////////
 /*
